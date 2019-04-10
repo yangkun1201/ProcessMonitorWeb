@@ -1,0 +1,12 @@
+#showCurTime{
+    background-color: aquamarine;
+}
+#showTotalTime{
+    background-color: white;
+}
+#typeContainer{
+    float: right;
+}
+#chartType{
+    border-radius: 10px;
+}
