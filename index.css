@@ -10,3 +10,28 @@
 #chartType{
     border-radius: 10px;
 }
+#addSoftsConfigBtn{
+    float: right;
+}
+#popupDialog{
+    margin: 0 auto;
+    position: fixed;
+    z-index: 200;
+    visibility: hidden;
+    overflow: hidden;
+    border:1px solid #CCC;
+    background-color:#F9F9F9;
+    border:1px solid #333;
+    padding:5px;
+    border-radius: 10px;
+}
+#closePopupDialog{
+    margin-left: 300px;
+}
+.popup_div{
+    margin: 10px;
+}
+.popup_input{
+    margin-left: 5px;
+    border-radius: 5px;
+}
