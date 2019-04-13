@@ -35,3 +35,15 @@
     margin-left: 5px;
     border-radius: 5px;
 }
+.checkboxLabel{
+    margin-left: 10px;
+    width: 200px;
+    margin-right: 50px;
+}
+.CenteredContainer{
+    margin: 0px auto;
+}
+.softsConfigBtnDiv{
+    margin-left: 340px;
+    margin-top: 20px;
+}

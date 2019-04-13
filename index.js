@@ -1,5 +1,5 @@
 //获取当前用户
-var account = '1';
+var account = '';
 // 定义变量
 var label = [];
 var curTime = [];
@@ -35,7 +35,7 @@ function getTimeData(){
 //绘制图表
 function drawChart(label,data,type){
 
-    //清楚原有图表
+    //清除原有图表
     $('#myChart').remove(); 
     $('#chartContainer').append('<canvas id="myChart"><canvas>');
     //绘图
@@ -97,7 +97,14 @@ function showTotalTime(){
 
 $(document).ready(function(){
 
-    
+    //获取已登陆账号
+    var params = window.location.href.split('?')[1];
+    var paramName = params.split('=')[0];
+    var paramValue = params.split('=')[1];
+    console.log(paramValue);
+    account = paramValue;
+
+    //加载图表及配置信息
     getMonitorSoftsInfo();
     getTimeData();
 
@@ -105,7 +112,7 @@ $(document).ready(function(){
     $('#chartType').change(function(msg){
         var obj = $('#chartType');
         var selected=$(this).children('option:selected').val()
-        console.log(selected);
+        //console.log(selected);
         chartType = selected;
         drawChart(label,data,chartType);
     })
@@ -117,14 +124,23 @@ function getMonitorSoftsInfo(){
         method:'get',
         url:'http://127.0.0.1:8080/getAppConfigInfo'
     }).done(function(msg){
-        console.log(msg)
+        //console.log(msg)
         msg.forEach(element => {
             //console.log(element.name);
-            var node = '<div class="col-lg-6 col-sm-6"><input type="checkbox" value='+element.id+'>'+element.name+'</div>'
+            var node = '<div class="col-lg-6 col-sm-8 CenteredContainer">'
+            + '<input type="checkbox" value='+element.id+'>'
+            + '<label class="checkboxLabel">'
+            + element.name
+            + '</label>'
+            + '<button class="btn btn-light btn-xl js-scroll-trigger class="col-lg-2 col-sm-2""  onclick="deleteCheckbox(this)">删除</button>'
+            +'</div>'
+
             $('#softsConfig').append(node);
         });
-        var node = '<button class="btn btn-light btn-xl js-scroll-trigger" onclick="submitSoftsConfigInfo()">确认</button>'+
-                   '<button class="btn btn-light btn-xl js-scroll-trigger" onclick="resetSoftsConfigInfo()">重置</button>';
+        var node = '<div class="softsConfigBtnDiv">'
+        +'<button class="btn btn-light btn-xl js-scroll-trigger" onclick="submitSoftsConfigInfo()">确认</button>'
+        +'<button class="btn btn-light btn-xl js-scroll-trigger" onclick="resetSoftsConfigInfo()">重置</button>'
+        +'</div>';
         $('#softsConfig').append(node);
         //勾选原有的软件
         $.ajax({
@@ -231,7 +247,7 @@ function showSoftsConfigDialog(){
 function closePopupDialog(){
     var popUp = $('#popupDialog');
     popUp.css('visibility','hidden');
-    console.log('closePopupDialog');
+    //console.log('closePopupDialog');
 }
 
 //增加监控软件
@@ -258,4 +274,33 @@ function addSoftsConfig(){
         }
 
     });
+}
+
+//删除多选框
+function deleteCheckbox(obj){
+    var parentNode = $(obj)[0].parentNode;
+    var childNode = $(parentNode)[0].childNodes[0];
+    // console.log($(childNode).prop('value'));
+    // console.log($(childNode).prop('checked'));
+    if($(childNode).prop('checked') === true){
+        alert('删除前，请先取消勾选该软件');
+    }else{
+        //console.log($(childNode).prop('value'));
+        var value = $(childNode).prop('value');
+        //向服务端删除数据
+        $.ajax({
+            method:'post',
+            url:'http://127.0.0.1:8080/deleteSoftsConfigById',
+            data:{
+                id:value
+            }
+        }).done(function(msg){
+            if(msg.status === 'ok'){
+                alert('删除配置软件成功');
+                $(parentNode).remove();
+            }
+        });
+
+        
+    }
 }
