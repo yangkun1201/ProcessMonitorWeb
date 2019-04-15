@@ -10,14 +10,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1 class="Center" style="margin-top:60px;">登录</h1>
+    <h1 class="Center" style="margin-top:60px;">登陆</h1>
     <hr/>
     <div class="Center loginContainer">
-        <input id="account" type="text" placeholder="账号" class="form-control"><br>
-        <input id="password" type="password" placeholder="密码" class="form-control"><br>
-        <button onclick="checkLogin()" class="btn btn-primary" style="margin-right: 50px;">确认</button>
-        <button onclick="registeredAccount()" class="btn btn-primary">注册</button>
-        <br>
+        <a class="loginMethod" onclick="changeLoginMethod(this)">二维码登陆</a>
+        <!--账号密码登陆-->
+        <div id="loginByAccount">
+            <input id="account" type="text" placeholder="账号" class="form-control"><br>
+            <input id="password" type="password" placeholder="密码" class="form-control"><br>
+            <button onclick="checkLogin()" class="btn btn-primary" style="margin-right: 50px;">确认</button>
+            <button onclick="registeredAccount()" class="btn btn-primary">注册</button>
+            <br>
+        </div>
+        <!--二维码登陆-->
+        <div id="loginByQrcode">
+            <img id="qrCodeImg" onclick="getQrCodeFromServer()">
+        </div>
     </div>
 
   <!--login.js-->

@@ -3,5 +3,25 @@
     text-align: center;
 }
 .loginContainer{
-    width: 260px;
+    width: 300px;
+    border:1px solid #EEEEEE;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+.loginMethod{
+    float: right;
+}
+#account{
+   margin-top: 40px;
+}
+
+#loginByQrcode{
+    display: none;
+    text-align: center;
+}
+
+#qrCodeImg{
+    width: 220px;
+    height: 220px;
 }
