@@ -1,3 +1,4 @@
+
 //获取当前用户
 var account = '';
 // 定义变量
@@ -6,12 +7,15 @@ var curTime = [];
 var totalTime = [];
 var data = [];
 var chartType = "bar";
+//获取ip
+var ip = localStorage.getItem('ip');
+console.log(ip);
 
 //获取计时数据
 function getTimeData(){
     $.ajax({
         method:"GET",
-        url:"http://127.0.0.1:8080/getAppTimeInfo",
+        url:ip+"getAppTimeInfo",
         data:{
             account:account
         }
@@ -97,13 +101,21 @@ function showTotalTime(){
 
 $(document).ready(function(){
 
-    //获取已登陆账号
-    var params = window.location.href.split('?')[1];
-    var paramName = params.split('=')[0];
-    var paramValue = params.split('=')[1];
-    console.log(paramValue);
-    account = paramValue;
 
+    //获取已登陆账号
+    if(window.location.href.indexOf('?')!==-1){
+        var params = window.location.href.split('?')[1];
+        var paramName = params.split('=')[0];
+        var paramValue = params.split('=')[1];
+        console.log(paramValue);
+        account = paramValue;
+        if(account !== ''){
+            $('#loginBtn').text('当前用户: '+account);           
+        }else{
+            $('#loginBtn').text('登录');     
+        }
+    }
+   
     //加载图表及配置信息
     getMonitorSoftsInfo();
     getTimeData();
@@ -122,7 +134,7 @@ $(document).ready(function(){
 function getMonitorSoftsInfo(){
     $.ajax({
         method:'get',
-        url:'http://127.0.0.1:8080/getAppConfigInfo'
+        url:ip+'getAppConfigInfo'
     }).done(function(msg){
         //console.log(msg)
         msg.forEach(element => {
@@ -145,7 +157,7 @@ function getMonitorSoftsInfo(){
         //勾选原有的软件
         $.ajax({
             method:'get',
-            url:'http://127.0.0.1:8080/getUserInfoByAccount',
+            url:ip+'getUserInfoByAccount',
             data:{
                 account:account
             }
@@ -189,7 +201,7 @@ function submitSoftsConfigInfo(){
     //更新到服务端数据库
     $.ajax({
         method:'post',
-        url:'http://127.0.0.1:8080/updateUserSofts',
+        url:ip+'updateUserSofts',
         data:{
             account:account,
             softs:softs
@@ -219,7 +231,7 @@ function resetSoftsConfigInfo(){
     //更新到服务端数据库
     $.ajax({
         method:'post',
-        url:'http://127.0.0.1:8080/updateUserSofts',
+        url:ip+'updateUserSofts',
         data:{
             account:account,
             softs:softs
@@ -258,7 +270,7 @@ function addSoftsConfig(){
     // console.log(processName);
     $.ajax({
         method:'post',
-        url:'http://127.0.0.1:8080/addSoftsConfig',
+        url:ip+'addSoftsConfig',
         data:{
             name:name,
             processname:processName
@@ -290,7 +302,7 @@ function deleteCheckbox(obj){
         //向服务端删除数据
         $.ajax({
             method:'post',
-            url:'http://127.0.0.1:8080/deleteSoftsConfigById',
+            url:ip+'deleteSoftsConfigById',
             data:{
                 id:value
             }
@@ -304,3 +316,21 @@ function deleteCheckbox(obj){
         
     }
 }
+
+//登录按钮鼠标悬停事件
+function loginMouseOver(obj){
+    //console.log($(obj).text());
+    var curText = $(obj).text();
+    if(curText.indexOf(':')!==-1){
+        $(obj).text('注销');
+    }
+}
+//登录按钮鼠标离开事件
+function loginMouseOut(obj){
+    console.log($(obj).text());
+    var curText = $(obj).text();
+    if(curText.indexOf('注销')!==-1){
+        $(obj).text('当前用户: '+account);
+    }
+}
+loginMouseOut

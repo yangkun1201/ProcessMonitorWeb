@@ -15,18 +15,18 @@
     <h1 class="Center" style="margin-top:60px;">注册</h1>
     <hr/>
     <div class="Center registeredContainer">
-        <input id="account" type="text" placeholder="账号" class="form-control" onblur="checkAccountInput(this)"><br/>
-        <input id="username" type="text" placeholder="用户名" class="form-control" onblur="checkUsernameInput(this)"><br/>
-        <input id="password" type="password" placeholder="密码" class="form-control" onblur="checkPasswordInput(this)"><br/>
+        <input id="account" type="text" placeholder="账号" class="form-control" onchange="checkAccountInput(this)"><br/>
+        <input id="username" type="text" placeholder="用户名" class="form-control" onchange="checkUsernameInput(this)"><br/>
+        <input id="password" type="password" placeholder="密码" class="form-control" onchange="checkPasswordInput(this)"><br/>
         
         <div class="input-group">
-            <input id="phone" type="tel" placeholder="手机号码" class="form-control" onblur="checkPhoneInput(this)">
+            <input id="phone" type="tel" placeholder="手机号码" class="form-control" onchange="checkPhoneInput(this)">
             <span class="input-group-btn">
                 <button id="verificationBtn" class="btn btn-default" type="button" onclick="getVerificationCode()">获取验证码</button>
             </span>
         </div>
         <br/>
-        <input id="verificationCode" placeholder="验证码" class="form-control" onblur="checkVerificationCodeInput(this)"><br/>
+        <input id="verificationCode" placeholder="验证码" class="form-control" onchange="checkVerificationCodeInput(this)"><br/>
         <button onclick="registeredAccount()" class="btn btn-primary">确认</button><br/>
     </div>
 

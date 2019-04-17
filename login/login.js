@@ -1,3 +1,8 @@
+//存储ip地址
+//var ip = "http://127.0.0.1:8080/";
+var ip = "http://39.108.95.162:8080/";
+localStorage.setItem('ip',ip);
+
 //登录验证
 function checkLogin(){
     var account = $('#account').val();
@@ -12,7 +17,7 @@ function checkLogin(){
 
     $.ajax({
         method:'post',
-        url:'http://127.0.0.1:8080/login',
+        url:ip+'login',
         contentType:'application/json;charset=utf-8', 
         dataType:'json',
         data:JSON.stringify({
@@ -23,7 +28,7 @@ function checkLogin(){
         //console.log(msg);
         if(msg.code === 0){
             alert('登录成功');
-            window.location.href = 'file:///G:/%E6%96%87%E6%A1%A3/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/ProcessMonitorWeb/index.html?account=' + account;
+            window.location.href = '../index.html?account=' + account;
         }else if(msg.code === 1){
             alert('密码错误')
         }else if(msg.code === 2){
@@ -35,7 +40,7 @@ function checkLogin(){
 //注册账号
 function registeredAccount(){
     //console.log(window.location);
-    window.location.href = 'file:///G:/%E6%96%87%E6%A1%A3/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/ProcessMonitorWeb/registered/registered.html';
+    window.location.href = '../registered/registered.html';
 }
 
 //改变登陆方式
@@ -61,7 +66,7 @@ function changeLoginMethod(obj){
 function getQrCodeFromServer(){
     $.ajax({
         method:'get',
-        url:'http://127.0.0.1:8080/getQrCodeImageBase64'
+        url:ip+'getQrCodeImageBase64'
     }).done(function(msg){
         console.log(msg.uuid);
         imgUrl = 'data:image/jpg;base64,'+msg.qrCodeInBase64;
@@ -76,7 +81,7 @@ function pollingQrCodeStatus(uuid){
         console.log('polling');
         $.ajax({
             method:'get',
-            url:'http://127.0.0.1:8080/queryQrCodeScanStatus',
+            url:ip+'queryQrCodeScanStatus',
             data:{
                 uuid:uuid
             }
@@ -85,7 +90,7 @@ function pollingQrCodeStatus(uuid){
                 var account = msg.account;
                 clearInterval(timeId);
                 console.log('polling success : ' + account);
-                window.location.href = 'file:///G:/%E6%96%87%E6%A1%A3/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/ProcessMonitorWeb/index.html?account=' + account;
+                window.location.href = '../index.html?account=' + account;
             }
         })
     },200);

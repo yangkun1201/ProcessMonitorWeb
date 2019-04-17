@@ -1,11 +1,14 @@
 
-var checkAccount = true;
-var checkUsername = true;
-var checkPassword = true;
-var checkPhone = true;
-var checkVerificationCode = true;
+var checkAccount = false;
+var checkUsername = false;
+var checkPassword = false;
+var checkPhone = false;
+var checkVerificationCode = false;
 var waitTime = 60;
 var verificationCode = '';
+//获取ip
+var ip = localStorage.getItem('ip');
+console.log(ip);
 
 function registeredAccount(){
     var account = $('#account').val();
@@ -32,7 +35,7 @@ function registeredAccount(){
 
     $.ajax({
         method:'post',
-        url:'http://127.0.0.1:8080/registeredAccount',
+        url:ip+'registeredAccount',
         contentType:'application/json;charset=utf-8',
         dataType:'json',
         data:JSON.stringify({
@@ -52,7 +55,7 @@ function registeredAccount(){
 
 }
 
-
+//获取验证码
 function getVerificationCode(){
     var phone = $('#phone').val();
     //验证手机号码格式
@@ -75,19 +78,19 @@ function getVerificationCode(){
     //调用服务端的短信服务
     $.ajax({
         method:'get',
-        url:'http://127.0.0.1:8080/sendSms',
+        url:ip+'sendSms',
         data:{
             phone:phone
         }
     }).done(function(msg){
-        console.log(msg);
+        //console.log(msg);
         verificationCode = msg.verificationCode;
     })
 }
 
 //检测账号
 function checkAccountInput(obj){
-    checkAccount = true;
+    checkAccount = false;
     var data = $(obj).val();
     //判断账号是否为空
     if(data === ''){
@@ -99,7 +102,7 @@ function checkAccountInput(obj){
     //判断账号是否已存在
     $.ajax({
         method:'get',
-        url:'http://127.0.0.1:8080/checkAccountExist',
+        url:ip+'checkAccountExist',
         data:{
             account:data
         }
@@ -112,26 +115,29 @@ function checkAccountInput(obj){
             $(obj).val('');
         }else{
             $(obj).css('border-color','#07DC00');
+            checkAccount = true;
         }
     });
 }
 
 //检测用户名
 function checkUsernameInput(obj){
-    checkUsername = true;
+    checkUsername = false;
     var data = $(obj).val();
     if(data === ''){
         alert('用户名不能为空');
         $(obj).css('border-color','#FF0000');
         checkUsername = false;
         return;
+    }else{
+        checkUsername = true;
     }
     $(obj).css('border-color','#07DC00');
 }
 
 //检测密码
 function checkPasswordInput(obj){
-    checkPassword = true;
+    checkPassword = false;
     var data = $(obj).val();
     if(data === ''){
         alert('密码不能为空');
@@ -144,12 +150,13 @@ function checkPasswordInput(obj){
         checkPassword = false;
         return;
     }
+    checkPassword = true;
     $(obj).css('border-color','#07DC00');
 }
 
 //检测手机号码
 function checkPhoneInput(obj){
-    checkPhone = true;
+    checkPhone = false;
     var data = $(obj).val();
     if(data === ''){
         alert('手机号码不能为空');
@@ -162,12 +169,13 @@ function checkPhoneInput(obj){
         checkPhone = false;
         return;
     }
+    checkPhone = true;
     $(obj).css('border-color','#07DC00');
 }
 
 //检测验证码
 function checkVerificationCodeInput(obj){
-    checkVerificationCode = true;
+    checkVerificationCode = false;
     var data = $(obj).val();
     if(data === ''){
         alert('验证不能为空');
@@ -180,5 +188,6 @@ function checkVerificationCodeInput(obj){
         checkVerificationCode = false;
         return;
      }
+     checkVerificationCode = true;
     $(obj).css('border-color','#07DC00');
 }
