@@ -1,6 +1,6 @@
 //存储ip地址
 //var ip = "http://127.0.0.1:8080/";
-var ip = "http://39.108.95.162:8080/";
+var ip = "http://39.108.95.162:8080/MonitorService/";
 localStorage.setItem('ip',ip);
 
 //登录验证
