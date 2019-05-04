@@ -51,7 +51,7 @@ function registeredAccount(){
         // console.log(msg);
         if(msg.status === 'ok'){
             alert('注册成功');
-            window.location.href="file:///G:/%E6%96%87%E6%A1%A3/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/ProcessMonitorWeb/login/login.html";
+            window.location.href="http://39.108.95.162/login/login.html";
         }
     });
 
