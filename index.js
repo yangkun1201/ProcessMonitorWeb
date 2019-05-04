@@ -333,4 +333,3 @@ function loginMouseOut(obj){
         $(obj).text('当前用户: '+account);
     }
 }
-loginMouseOut

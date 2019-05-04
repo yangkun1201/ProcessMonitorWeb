@@ -6,6 +6,7 @@ var checkPhone = false;
 var checkVerificationCode = false;
 var waitTime = 60;
 var verificationCode = '';
+var imgBase64 = '';
 //获取ip
 var ip = localStorage.getItem('ip');
 console.log(ip);
@@ -43,7 +44,8 @@ function registeredAccount(){
             username:username,
             password:password,
             phone:phone,
-            softs:''
+            softs:'',
+            imgBase64:imgBase64
         })
     }).done(function(msg){
         // console.log(msg);
@@ -190,4 +192,21 @@ function checkVerificationCodeInput(obj){
      }
      checkVerificationCode = true;
     $(obj).css('border-color','#07DC00');
+}
+
+//预览上传图片
+function previewFile(){
+  var preview = document.querySelector('img');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+    imgBase64 = reader.result;
+    //console.log(reader.result);
+  }, false);
+
+  if(file) {
+    reader.readAsDataURL(file);
+  }
 }

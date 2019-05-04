@@ -27,7 +27,12 @@
         </div>
         <br/>
         <input id="verificationCode" placeholder="验证码" class="form-control" onchange="checkVerificationCodeInput(this)"><br/>
+        <hr/>
+        <label>上传人脸图片</label>
+        <input id="imgFile" placeholder="人脸图片" type="file" onchange="previewFile()"><br>
+        <img id="showFaceImg"><br><br>
         <button onclick="registeredAccount()" class="btn btn-primary">确认</button><br/>
+       
     </div>
 
     <script src="registered.js"></script>
