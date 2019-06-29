@@ -1,7 +1,7 @@
 
 # ProcessMonitorWeb
 ## 简介
-本项目为前端Web项目，使用Ajax请求后台数据，并用Jquery修改前段界面.
+本项目为前端Web项目，使用Ajax请求后台数据，并用Jquery修改前端界面.
 包含以下功能：
 * 二维码登录
 * 短信验证码
